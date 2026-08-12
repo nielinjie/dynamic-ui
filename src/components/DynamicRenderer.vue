@@ -11,10 +11,10 @@ import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
 
 const props = defineProps<{
   viewDeclare: ViewDeclare,
-  atState:string
+  atState: string
 }>()
 provide('viewDeclare', computed(() => props.viewDeclare))
-provide(STATE_NAME,  props.atState)
+provide(STATE_NAME, props.atState)
 const rootItem = computed(() => props.viewDeclare.filter((c: ViewDeclareItem) => c.id === "/")[0])
 </script>
 <template>
