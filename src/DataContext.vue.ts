@@ -2,20 +2,19 @@
  * DataContext.vue.ts —— Vue 适配层
  *
  * 把纯 JS 的 DataContext 类包装成 Vue 友好的 provide/inject 模式。
- * 单独拆出此文件，避免 Node 测试环境依赖 Vue。
  */
 import { type ComputedRef, computed, inject, provide } from 'vue'
 import { DataContext } from './DataContext'
 
-export const DATA_CONTEXT_KEY: symbol = Symbol('a2ui-data-context')
+export const CENTER_DATA: symbol = Symbol('center-data-context')
 
 /**
- * 在祖先（A2UIRenderer）调用：把 reactive dataModel 包装成 DataContext 并 provide
+ * 在祖先调用：把 reactive dataModel 包装成 DataContext 并 provide
  *   provideDataContext(reactive({ user: { name: 'Alice' } }))
  */
-export function provideDataContext(dataModelRef: unknown): ComputedRef<DataContext> {
+export function provideDataContext(dataModelRef: unknown,name:symbol = CENTER_DATA): ComputedRef<DataContext> {
   const ctx = computed(() => new DataContext((dataModelRef as { value?: unknown }).value || dataModelRef))
-  provide(DATA_CONTEXT_KEY, ctx)
+  provide(name, ctx)
   return ctx
 }
 
@@ -24,8 +23,8 @@ export function provideDataContext(dataModelRef: unknown): ComputedRef<DataConte
  *   const ctx = useDataContext()
  *   ctx.resolveDynamic(node.text)
  */
-export function useDataContext(): DataContext {
-  const ctxRef = inject<ComputedRef<DataContext>>(DATA_CONTEXT_KEY)
+export function useDataContext(name:symbol = CENTER_DATA): DataContext {
+  const ctxRef = inject<ComputedRef<DataContext>>(CENTER_DATA)
   if (!ctxRef) {
     console.warn('[A2UI] useDataContext: no DataContext provided, returning empty context')
     return new DataContext({})

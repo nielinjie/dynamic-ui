@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import type {ViewDeclareItem} from "@/spec/spec.ts";
+import type {ViewDeclareItem} from "@/spec/declare.ts";
 import {catalog} from "./catalog/index.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()

@@ -27,7 +27,7 @@ function parsePointer(pointer: string | undefined): string[] {
   if (!pointer || pointer === '/') return []
   return pointer.replace(/^\//, '').split('/').map(seg =>
     seg.replace(/~1/g, '/').replace(/~0/g, '~')
-  )
+  ).filter(p => !(p==''))
 }
 
 /**
@@ -87,30 +87,13 @@ export class DataContext {
     this._scope = scopePrefix
   }
 
-  /**
-   * 解析一个值绑定：
-   *   - { "path": "/user/name" }  → 按绝对路径读
-   *   - { "path": "name" }        → 按 scope 拼接后读
-   *   - 字面量                      → 原样返回
-   */
-  resolveDynamic(value: unknown): unknown {
-    if (value && typeof value === 'object' && !Array.isArray(value) && 'path' in value) {
-      return this.resolve((value as PathValue).path)
-    }
-    return value
-  }
+
 
   /**
    * 解析路径（绝对 or 相对）
    */
   resolve(pointer: string): unknown {
-    if (!pointer) return this._root
-    if (pointer === '/') return this._root
 
-    // 绝对路径：以 / 开头
-    if (pointer.startsWith('/')) {
-      return jsonPointerGet(this._root, pointer)
-    }
 
     // 相对路径：拼到当前 scope 下
     const scoped = this._scope

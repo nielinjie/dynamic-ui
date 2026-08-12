@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import DynamicRenderer from '@/components/DynamicRenderer.vue'
-import {ref} from "vue";
-import SimpleTablePage from "@/components/SimpleTablePage.vue";
 
+import DynamicPage from "@/components/DynamicPage.vue";
 </script>
 
 <template>
-  <SimpleTablePage/>
+  <DynamicPage pageName="personTableAndSheet"/>
 </template>
 
 <style scoped>
 
 main {
   height: 80vh;
+  width: 80vw;
 }
 
 header {
