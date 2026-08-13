@@ -69,31 +69,31 @@ export const fake: Spec = {
                         {
                             "dataPath": "/id",
                             "componentPath": "/id",
-                            "element": "row",
+                            "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/name",
                             "componentPath": "/name",
-                            "element": "row",
+                            "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/age",
                             "componentPath": "/age",
-                            "element": "row",
+                            "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/address",
                             "componentPath": "/address",
-                            "element": "row",
+                            "element": "text",
                             "setting": {}
                         },
                         {
                             "dataPath": "/contact",
                             "componentPath": "/contact",
-                            "element": "row",
+                            "element": "input",
                             "setting": {}
                         }
                     ]
