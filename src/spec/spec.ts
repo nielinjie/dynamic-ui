@@ -4,23 +4,33 @@
 import {fake} from "@/spec/fake.ts";
 import {fillChildren, type MView} from "@/spec/declare.ts";
 
+/**
+ * 把 dataPath 转换成 path，例如 /[]/id 转换成 /id
+ * @param dataPath
+ */
+function getPathFromData(dataPath: string): string {
+    return dataPath.replace(/\/\[\]/g, '');
+}
+
 export function spec(pageName: string, componentName: string): MView {
     return {
         dataModel: undefined,
-        viewDeclare: fillChildren(fake.pages[pageName]!!.components[componentName]!!.items.map((item: any) => ({
-            id: item.componentPath,
-            dataPath: item.dataPath,
-            path: item.componentPath,
-            element: item.element,
-            setting: item.setting
-        })))
+        viewDeclare: fillChildren(fake.pages[pageName]!!.components[componentName]!!.items.map((item: any) => {
+            const path = getPathFromData(item.dataPath);
+            return {
+                id: path,
+                dataPath: item.dataPath,
+                path: path,
+                element: item.element,
+                setting: item.setting
+            }
+        }))
     }
 }
 
 
 export interface SpecComponentItem {
     dataPath: string
-    componentPath: string
     element: string
     setting: object
 }

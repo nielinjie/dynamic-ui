@@ -10,49 +10,41 @@ export const fake: Spec = {
                     "items": [
                         {
                             "dataPath": "/",
-                            componentPath: "/",
                             "element": "table",
                             "setting": {}
                         },
                         {
                             "dataPath": "/[]/id",
-                            componentPath: "/id",
                             "element": "text",
                             "setting": {"prop": "id"}
                         },
                         {
                             "dataPath": "/[]/name",
-                            "componentPath": "/name",
                             "element": "text",
                             "setting": {"prop": "name"}
                         },
                         {
                             "dataPath": "/[]/age",
-                            componentPath: "/age",
                             "element": "text",
                             "setting": {"prop": "age"}
                         },
                         {
                             "dataPath": "/[]/address",
-                            componentPath: "/address",
                             "element": "row",
                             "setting": {"prop": "address", "label": "Address"}
                         },
                         {
                             "dataPath": "/[]/address/city",
-                            "componentPath": "/address/city",
                             "element": "text",
                             "setting": {}
                         },
                         {
                             "dataPath": "/[]/address/street",
-                            "componentPath": "/address/street",
                             "element": "text",
                             "setting": {}
                         },
                         {
                             "dataPath": "/[]/contact",
-                            "componentPath": "/contact",
                             "element": "text",
                             "setting": {"prop": "contact"}
                         }
@@ -62,37 +54,31 @@ export const fake: Spec = {
                     "items": [
                         {
                             "dataPath": "/",
-                            "componentPath": "/",
                             "element": "sheet",
                             "setting": {}
                         },
                         {
                             "dataPath": "/id",
-                            "componentPath": "/id",
                             "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/name",
-                            "componentPath": "/name",
                             "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/age",
-                            "componentPath": "/age",
                             "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/address",
-                            "componentPath": "/address",
                             "element": "text",
                             "setting": {}
                         },
                         {
                             "dataPath": "/contact",
-                            "componentPath": "/contact",
                             "element": "input",
                             "setting": {}
                         }

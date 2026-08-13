@@ -2,6 +2,9 @@
 /**
  * @see MView
  * 这里对应于一个 MView，不是一个页面。一个页面可能包含多个 MView。
+ * 一般对应一个 dataModel。
+ * 比如 center-data，
+ * atState，是 center-data 的一个部分。比如 selected 的部分，editing 的部分。
  */
 import {computed, inject, provide, type Ref} from 'vue'
 import type {ViewDeclare, ViewDeclareItem} from "@/spec/declare.ts";

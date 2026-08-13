@@ -16,7 +16,7 @@ const stateName: string = inject(STATE_NAME)!!
 const modelValue = computed(
     () => {
       const statePathValue = stateData.value[stateName] || '/'
-      const newDataPath = props.viewDeclareItem!!.dataPath.replace("[]", String(props.dataIndex))
+      const newDataPath = props.viewDeclareItem!!.dataPath.replace("[]", String(props.dataIndex!!))
       const v = ctx.value.scope(statePathValue).resolve(newDataPath)
       return v as string | number | undefined
     })

@@ -14,7 +14,7 @@ declare module 'vue' {
     Card: typeof import('./src/components/Card.vue')['default']
     DynamicComponent: typeof import('./src/components/DynamicComponent.vue')['default']
     Input: typeof import('./src/components/Input.vue')['default']
-    DynamicRenderer: typeof import('./src/components/DynamicRenderer.vue')['default']
+    DynamicRenderer: typeof import('./src/components/RootRenderer.vue')['default']
     ElInput: typeof import('element-plus/es')['ElInput']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']

@@ -4,9 +4,9 @@ import { fillChildren, type ViewDeclareItem, type ViewDeclare } from './declare.
 describe('fillChildren', () => {
     it('should fill children for single-level paths', () => {
         const viewDeclare: ViewDeclare = [
-            { id: '/', path: '/', element: 'card', setting: {} },
-            { id: '/name', path: '/name', element: 'input', setting: {} },
-            { id: '/age', path: '/age', element: 'input', setting: {} }
+            { id: '/', path: '/', dataPath: '/', element: 'card', setting: {} },
+            { id: '/name', path: '/name', dataPath: '/name', element: 'input', setting: {} },
+            { id: '/age', path: '/age', dataPath: '/age', element: 'input', setting: {} }
         ]
 
         fillChildren(viewDeclare)
@@ -17,10 +17,10 @@ describe('fillChildren', () => {
 
     it('should fill children for multi-level nested paths', () => {
         const viewDeclare: ViewDeclare = [
-            { id: '/', path: '/', element: 'card', setting: {} },
-            { id: '/a', path: '/a', element: 'card', setting: {} },
-            { id: '/a/b', path: '/a/b', element: 'card', setting: {} },
-            { id: '/a/b/c', path: '/a/b/c', element: 'input', setting: {} }
+            { id: '/', path: '/', dataPath: '/', element: 'card', setting: {} },
+            { id: '/a', path: '/a', dataPath: '/a', element: 'card', setting: {} },
+            { id: '/a/b', path: '/a/b', dataPath: '/a/b', element: 'card', setting: {} },
+            { id: '/a/b/c', path: '/a/b/c', dataPath: '/a/b/c', element: 'input', setting: {} }
         ]
 
         fillChildren(viewDeclare)
@@ -31,8 +31,8 @@ describe('fillChildren', () => {
 
     it('should not modify items without parent', () => {
         const viewDeclare: ViewDeclare = [
-            { id: '/', path: '/', element: 'card', setting: {} },
-            { id: '/orphan', path: '/orphan', element: 'input', setting: {} }
+            { id: '/', path: '/', dataPath: '/', element: 'card', setting: {} },
+            { id: '/orphan', path: '/orphan', dataPath: '/orphan', element: 'input', setting: {} }
         ]
 
         fillChildren(viewDeclare)
@@ -42,8 +42,8 @@ describe('fillChildren', () => {
 
     it('should not duplicate children on multiple calls', () => {
         const viewDeclare: ViewDeclare = [
-            { id: '/', path: '/', element: 'card', setting: {} },
-            { id: '/name', path: '/name', element: 'input', setting: {} }
+            { id: '/', path: '/', dataPath: '/', element: 'card', setting: {} },
+            { id: '/name', path: '/name', dataPath: '/name', element: 'input', setting: {} }
         ]
 
         fillChildren(viewDeclare)
@@ -54,11 +54,11 @@ describe('fillChildren', () => {
 
     it('should handle mixed paths correctly', () => {
         const viewDeclare: ViewDeclare = [
-            { id: '/', path: '/', element: 'card', setting: {} },
-            { id: '/profile', path: '/profile', element: 'card', setting: {} },
-            { id: '/profile/name', path: '/profile/name', element: 'input', setting: {} },
-            { id: '/profile/age', path: '/profile/age', element: 'input', setting: {} },
-            { id: '/settings', path: '/settings', element: 'card', setting: {} }
+            { id: '/', path: '/', dataPath: '/', element: 'card', setting: {} },
+            { id: '/profile', path: '/profile', dataPath: '/profile', element: 'card', setting: {} },
+            { id: '/profile/name', path: '/profile/name', dataPath: '/profile/name', element: 'input', setting: {} },
+            { id: '/profile/age', path: '/profile/age', dataPath: '/profile/age', element: 'input', setting: {} },
+            { id: '/settings', path: '/settings', dataPath: '/settings', element: 'card', setting: {} }
         ]
 
         fillChildren(viewDeclare)
