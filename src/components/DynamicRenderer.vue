@@ -6,12 +6,11 @@
 import {computed, inject, provide, type Ref} from 'vue'
 import type {ViewDeclare, ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
-import {CENTER_DATA, DataContext, provideDataContext} from "@/DataContext.vue.ts";
 import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
 
 const props = defineProps<{
   viewDeclare: ViewDeclare,
-  atState: string
+  atState?: string
 }>()
 provide('viewDeclare', computed(() => props.viewDeclare))
 provide(STATE_NAME, props.atState)

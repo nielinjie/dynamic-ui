@@ -69,7 +69,7 @@ export const fake: Spec = {
                         {
                             "dataPath": "/address",
                             "element": "column",
-                            "setting": {"prop":"address"}
+                            "setting": {"prop":"address","label":"Address"}
                         },
                         {
                             "dataPath": "/contact",

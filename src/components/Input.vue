@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import {computed, inject} from "vue";
+import {computed, inject, type Ref} from "vue";
 import {ElInput} from "element-plus";
-import {useDataContext} from "@/DataContext.vue.ts";
+import {CENTER_DATA, DataContext, useDataContext} from "@/DataContext.vue.ts";
 import type {ViewDeclareItem} from "@/spec/declare.ts";
-import {STATE_DATA} from "@/data/state.ts";
+import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
 
 
-const props = defineProps<{viewDeclareItem:ViewDeclareItem}>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
 const emit = defineEmits(['patchDataModel'])
-const ctx = useDataContext()
-const stateData  = inject(STATE_DATA)
+const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
+const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
+
+const stateName: string = inject(STATE_NAME)!!
+
 
 const modelValue = computed({
   get() {
-    const statePath = stateData.value["selected"] || '/'
-    const v = ctx.scope(statePath).resolve(props.viewDeclareItem!!.path)
+    const statePathValue = stateData.value[stateName] || '/'
+    const v = ctx.value.scope(statePathValue).resolve(props.viewDeclareItem!!.path)
     return v as string | number | undefined
 
   },
   set(val) {
-    ctx.set(props.viewDeclareItem!!.path, val)
+    console.log("setting")
+    const statePathValue = stateData.value[stateName] || '/'
+    ctx.value.scope(statePathValue).set(props.viewDeclareItem!!.path, val)
     emit('patchDataModel', {path: props.viewDeclareItem!!.path, value: val})
   }
 })

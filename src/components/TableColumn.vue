@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import {computed, inject} from "vue";
+import {computed, inject, type Ref} from "vue";
 import {ElTableColumn} from "element-plus";
-import {CENTER_DATA} from "@/DataContext.vue.ts";
+import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
 import type {ViewDeclareItem} from "@/spec/declare.ts";
 
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
 const emit = defineEmits(['patchDataModel'])
-const ctx = inject(CENTER_DATA)!!
+const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
 
 
 const modelValue = computed({

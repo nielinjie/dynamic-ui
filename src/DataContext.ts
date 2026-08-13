@@ -24,50 +24,50 @@
  *   ""         → []
  */
 function parsePointer(pointer: string | undefined): string[] {
-  if (!pointer || pointer === '/') return []
-  return pointer.replace(/^\//, '').split('/').map(seg =>
-    seg.replace(/~1/g, '/').replace(/~0/g, '~')
-  ).filter(p => !(p==''))
+    if (!pointer || pointer === '/') return []
+    return pointer.replace(/^\//, '').split('/').map(seg =>
+        seg.replace(/~1/g, '/').replace(/~0/g, '~')
+    ).filter(p => !(p == ''))
 }
 
 /**
  * 读：按 pointer 在 obj 中取值
  */
 export function jsonPointerGet(obj: unknown, pointer: string | undefined): unknown {
-  const parts = parsePointer(pointer)
-  if (parts.length === 0) return obj
-  let cur: unknown = obj
-  for (const p of parts) {
-    if (cur == null) return undefined
-    cur = (cur as Record<string, unknown>)[p]
-  }
-  return cur
+    const parts = parsePointer(pointer)
+    if (parts.length === 0) return obj
+    let cur: unknown = obj
+    for (const p of parts) {
+        if (cur == null) return undefined
+        cur = (cur as Record<string, unknown>)[p]
+    }
+    return cur
 }
 
 /**
  * 写：按 pointer 在 obj 中设值（会原地修改，自动创建中间对象/数组）
  */
 export function jsonPointerSet(obj: unknown, pointer: string | undefined, value: unknown): void {
-  const parts = parsePointer(pointer)
-  if (parts.length === 0) {
-    if (typeof obj === 'object' && obj !== null) {
-      Object.keys(obj).forEach(k => delete (obj as Record<string, unknown>)[k])
-      Object.assign(obj as object, value)
+    const parts = parsePointer(pointer)
+    if (parts.length === 0) {
+        if (typeof obj === 'object' && obj !== null) {
+            Object.keys(obj).forEach(k => delete (obj as Record<string, unknown>)[k])
+            Object.assign(obj as object, value)
+        }
+        return
     }
-    return
-  }
 
-  let cur: unknown = obj
-  for (let i = 0; i < parts.length - 1; i++) {
-    const key = parts[i]!!
-    const nextKey = parts[i + 1]!!
-    if ((cur as Record<string, unknown>)[key] == null) {
-      (cur as Record<string, unknown>)[key] = /^\d+$/.test(nextKey) ? [] : {}
+    let cur: unknown = obj
+    for (let i = 0; i < parts.length - 1; i++) {
+        const key = parts[i]!!
+        const nextKey = parts[i + 1]!!
+        if ((cur as Record<string, unknown>)[key] == null) {
+            (cur as Record<string, unknown>)[key] = /^\d+$/.test(nextKey) ? [] : {}
+        }
+        cur = (cur as Record<string, unknown>)[key]
     }
-    cur = (cur as Record<string, unknown>)[key]
-  }
-  const lastKey = parts[parts.length - 1]!!
-  ;(cur as Record<string, unknown>)[lastKey] = value
+    const lastKey = parts[parts.length - 1]!!
+    ;(cur as Record<string, unknown>)[lastKey] = value
 }
 
 // ─────────────────────────────────────────────
@@ -75,74 +75,67 @@ export function jsonPointerSet(obj: unknown, pointer: string | undefined, value:
 // ─────────────────────────────────────────────
 
 export interface PathValue {
-  path: string
+    path: string
 }
 
 export class DataContext {
-  private readonly _root: unknown
-  private readonly _scope: string
+    private readonly _root: unknown
+    private readonly _scope: string
 
-  constructor(rootDataModel: unknown, scopePrefix = '') {
-    this._root = rootDataModel
-    this._scope = scopePrefix
-  }
-
-
-
-  /**
-   * 解析路径（绝对 or 相对）
-   */
-  resolve(pointer: string): unknown {
-
-
-    // 相对路径：拼到当前 scope 下
-    const scoped = this._scope
-      ? `${this._scope}/${pointer}`
-      : `/${pointer}`
-    return jsonPointerGet(this._root, scoped)
-  }
-
-  /**
-   * 写入路径（绝对 or 相对）
-   */
-  set(pointer: string, value: unknown): void {
-    if (!pointer || pointer === '/') {
-      jsonPointerSet(this._root, '/', value)
-      return
+    constructor(rootDataModel: unknown, scopePrefix = '') {
+        this._root = rootDataModel
+        this._scope = scopePrefix
     }
-    if (pointer.startsWith('/')) {
-      jsonPointerSet(this._root, pointer, value)
-    } else {
-      const scoped = this._scope
-        ? `${this._scope}/${pointer}`
-        : `/${pointer}`
-      jsonPointerSet(this._root, scoped, value)
+
+
+    /**
+     * 解析路径（绝对 or 相对）
+     */
+    resolve(pointer: string): unknown {
+
+
+        // 相对路径：拼到当前 scope 下
+        const scoped = this._scope
+            ? `${this._scope}/${pointer}`
+            : `/${pointer}`
+        return jsonPointerGet(this._root, scoped)
     }
-  }
 
-  /**
-   * 创建子作用域（List 迭代时用）
-   *   const childCtx = ctx.scope('/products/0')
-   */
-  scope(scopePrefix: string): DataContext {
-    const cleanPrefix = scopePrefix.replace(/^\//, '')
-    const newPrefix = this._scope
-      ? `${this._scope}/${cleanPrefix}`
-      : `/${cleanPrefix}`
-    return new DataContext(this._root, newPrefix)
-  }
+    /**
+     * 写入路径（绝对 or 相对）
+     */
+    set(pointer: string, value: unknown): void {
 
-  /**
-   * 解析 action context 里的所有 path → 当前值
-   * 用于 Button 点击时把 context 序列化为可发送的值
-   */
-  resolveActionContext(contextItems: unknown[]): unknown[] {
-    if (!Array.isArray(contextItems)) return []
-    return contextItems.map(item => {
-      if (item && typeof item === 'object' && 'path' in item) {
-        return { ...(item as object), _resolvedValue: this.resolve((item as PathValue).path) }
-      }
-      return item
-    })
-  }
+        const scoped = this._scope
+            ? `${this._scope}/${pointer}`
+            : `/${pointer}`
+        jsonPointerSet(this._root, scoped, value)
+
+    }
+
+    /**
+     * 创建子作用域（List 迭代时用）
+     *   const childCtx = ctx.scope('/products/0')
+     */
+    scope(scopePrefix: string): DataContext {
+        const cleanPrefix = scopePrefix.replace(/^\//, '')
+        const newPrefix = this._scope
+            ? `${this._scope}/${cleanPrefix}`
+            : `/${cleanPrefix}`
+        return new DataContext(this._root, newPrefix)
+    }
+
+    /**
+     * 解析 action context 里的所有 path → 当前值
+     * 用于 Button 点击时把 context 序列化为可发送的值
+     */
+    resolveActionContext(contextItems: unknown[]): unknown[] {
+        if (!Array.isArray(contextItems)) return []
+        return contextItems.map(item => {
+            if (item && typeof item === 'object' && 'path' in item) {
+                return {...(item as object), _resolvedValue: this.resolve((item as PathValue).path)}
+            }
+            return item
+        })
+    }
 }

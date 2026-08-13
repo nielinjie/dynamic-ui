@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {computed, inject} from "vue";
+import {computed, inject, type Ref} from "vue";
 import {ElInput} from "element-plus";
-import {CENTER_DATA, useDataContext} from "@/DataContext.vue.ts";
+import {CENTER_DATA, DataContext, useDataContext} from "@/DataContext.vue.ts";
 import type {ViewDeclareItem} from "@/spec/declare.ts";
 import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
 
 
-const props = defineProps<{viewDeclareItem:ViewDeclareItem}>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
 const emit = defineEmits(['patchDataModel'])
-const ctx = inject(CENTER_DATA)
-const stateData = inject(STATE_DATA)
-const stateName = inject(STATE_NAME)
+const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
+const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
+const stateName: string = inject(STATE_NAME)!!
 
 
 const modelValue = computed({
@@ -21,7 +21,9 @@ const modelValue = computed({
 
   },
   set(val) {
-    ctx.value.set(props.viewDeclareItem!!.path, val)
+    console.log("setting")
+    const statePathValue = stateData.value[stateName] || '/'
+    ctx.value.scope(statePathValue).set(props.viewDeclareItem!!.path, val)
     emit('patchDataModel', {path: props.viewDeclareItem!!.path, value: val})
   }
 })

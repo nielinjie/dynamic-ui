@@ -15,30 +15,24 @@ const childNodes = computed(() =>
     (props.viewDeclareItem.children || []).map(id => viewDeclare.value.filter(i => i.id === id)[0]).filter((item): item is ViewDeclareItem => Boolean(item))
 )
 
-const ctx  = inject(CENTER_DATA)
+const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
 const emit = defineEmits(['patchDataModel'])
-const state :Ref<Record<string,any>> = inject(STATE_DATA)
+const state: Ref<Record<string, any>> = inject(STATE_DATA)!!
 
 
 function onRowClick(row: unknown) {
   const data = modelValue.value
   if (!Array.isArray(data)) return
   const index = data.indexOf(row)
-  state.value = {...state.value,selected:props.viewDeclareItem!!.path+"/"+index}
+  state.value = {...state.value, selected: props.viewDeclareItem!!.path + "/" + index}
 }
 
 
-const modelValue= computed({
-  get() {
-    const v = ctx.value.resolve(props.viewDeclareItem!!.path)
-    return v
-
-  },
-  set(val) {
-    ctx.set(props.viewDeclareItem!!.path, val)
-    emit('patchDataModel', {path: props.viewDeclareItem!!.path, value: val})
-  }
-})
+const modelValue :ComputedRef<any[]> = computed(
+    () => {
+      return ctx.value.resolve(props.viewDeclareItem!!.path) as any[]
+    },
+)
 </script>
 <template>
   <ElTable :data="modelValue" highlight-current-row @row-click="onRowClick">

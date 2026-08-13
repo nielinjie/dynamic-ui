@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { fillChildren, type ViewDeclareItem, type ViewDeclare } from './spec'
+import { fillChildren, type ViewDeclareItem, type ViewDeclare } from './declare.ts'
 
 describe('fillChildren', () => {
     it('should fill children for single-level paths', () => {

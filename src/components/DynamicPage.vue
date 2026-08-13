@@ -8,8 +8,8 @@ import {CENTER_DATA, DataContext, provideDataContext} from "@/DataContext.vue.ts
 
 const {pageName} = defineProps<{ pageName: string }>()
 
-const viewDeclare = ref(spec(pageName, "table@_").viewDeclare)
-const selectedViewDeclare = ref(spec(pageName, "sheet@selected").viewDeclare)
+const viewDeclare = spec(pageName, "table@_").viewDeclare
+const selectedViewDeclare = spec(pageName, "sheet@selected").viewDeclare
 
 const dataModel = ref(data)
 const stateData: Ref<Record<string, any>> = ref({})
@@ -24,7 +24,8 @@ provide(STATE_DATA, stateData)
 <template>
   <main>
     <DynamicRenderer key="table@_" :viewDeclare="viewDeclare"/>
-    <DynamicRenderer key="sheet@selected" :viewDeclare="selectedViewDeclare" atState="selected"/>
+    <DynamicRenderer key="sheet@selected" v-if="stateData.selected" :viewDeclare="selectedViewDeclare"
+                     atState="selected"/>
   </main>
 </template>
 
