@@ -13,28 +13,18 @@ const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
 const stateName: string = inject(STATE_NAME)!!
 
 
-const modelValue = computed({
-  get() {
-    const statePathValue = stateData.value[stateName] || '/'
-    console.log("dataPath",props.viewDeclareItem!!.dataPath)
-    const newDataPath = props.viewDeclareItem!!.dataPath.replace("[]",String(props.dataIndex))
-    console.log(newDataPath)
-    const v = ctx.value.scope(statePathValue).resolve(newDataPath)
-    return v as string | number | undefined
-
-  },
-  set(val) {
-    console.log("setting")
-    const statePathValue = stateData.value[stateName] || '/'
-    ctx.value.scope(statePathValue).set(props.viewDeclareItem!!.path, val)
-    emit('patchDataModel', {path: props.viewDeclareItem!!.path, value: val})
-  }
-})
+const modelValue = computed(
+    () => {
+      const statePathValue = stateData.value[stateName] || '/'
+      const newDataPath = props.viewDeclareItem!!.dataPath.replace("[]", String(props.dataIndex))
+      const v = ctx.value.scope(statePathValue).resolve(newDataPath)
+      return v as string | number | undefined
+    })
 </script>
 
 
 <template>
-  <ElText>{{modelValue}}</ElText>
+  <ElText>{{ modelValue }}</ElText>
 </template>
 
 <style scoped>

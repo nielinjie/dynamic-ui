@@ -35,7 +35,7 @@ export const fake: Spec = {
                         {
                             "dataPath": "/[]/address",
                             componentPath: "/address",
-                            "element": "card",
+                            "element": "row",
                             "setting": {"prop": "address", "label": "Address"}
                         },
                         {

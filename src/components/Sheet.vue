@@ -6,7 +6,7 @@ import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElCard} from "element-plus"
 
-const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
 const viewDeclare: Ref<ViewDeclare> = inject('viewDeclare')!!
 
 const childNodes = computed(() =>
@@ -17,6 +17,6 @@ const childNodes = computed(() =>
   <ElCard>
     <DynamicComponent v-for="child in childNodes"
                       :key="child!!.id"
-                      :viewDeclareItem="child"/>
+                      :viewDeclareItem="child" :dataIndex="dataIndex"/>
   </ElCard>
 </template>
