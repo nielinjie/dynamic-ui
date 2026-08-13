@@ -4,11 +4,11 @@ import {computed, type ComputedRef, inject, type Ref} from "vue";
 import type {ViewDeclare, ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
-import {ElTable} from "element-plus"
+import {ElTable, ElTableColumn} from "element-plus"
 import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
 import {STATE_DATA} from "@/data/state.ts";
 
-const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
 const viewDeclare: Ref<ViewDeclare> = inject('viewDeclare')!!
 
 const childNodes = computed(() =>
@@ -28,7 +28,7 @@ function onRowClick(row: unknown) {
 }
 
 
-const modelValue :ComputedRef<any[]> = computed(
+const modelValue: ComputedRef<any[]> = computed(
     () => {
       return ctx.value.resolve(props.viewDeclareItem!!.path) as any[]
     },
@@ -36,8 +36,12 @@ const modelValue :ComputedRef<any[]> = computed(
 </script>
 <template>
   <ElTable :data="modelValue" highlight-current-row @row-click="onRowClick">
-    <DynamicComponent v-for="child in childNodes"
-                      :key="child!!.id"
-                      :viewDeclareItem="child" v-bind="child!!.setting"/>
+    <ElTableColumn v-for="child in childNodes"
+                   :key="child!!.id">
+      <template #default="scope">
+        <DynamicComponent
+            :viewDeclareItem="child" v-bind="child!!.setting" :dataIndex="scope.$index"/>
+      </template>
+    </ElTableColumn>
   </ElTable>
 </template>

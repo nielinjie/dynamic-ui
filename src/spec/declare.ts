@@ -1,5 +1,3 @@
-
-
 export type ViewDeclare = Array<ViewDeclareItem>
 
 /**
@@ -37,6 +35,7 @@ export function fillChildren(viewDeclare: ViewDeclare): ViewDeclare {
 export interface ViewDeclareItem {
     id: string,
     path: string,
+    dataPath: string,
     element: string,
     setting: object,
     children?: Array<string>

@@ -8,8 +8,9 @@ export function spec(pageName: string, componentName: string): MView {
     return {
         dataModel: undefined,
         viewDeclare: fillChildren(fake.pages[pageName]!!.components[componentName]!!.items.map((item: any) => ({
-            id: item.dataPath,
-            path: item.dataPath,
+            id: item.componentPath,
+            dataPath: item.dataPath,
+            path: item.componentPath,
             element: item.element,
             setting: item.setting
         })))
@@ -19,6 +20,7 @@ export function spec(pageName: string, componentName: string): MView {
 
 export interface SpecComponentItem {
     dataPath: string
+    componentPath: string
     element: string
     setting: object
 }

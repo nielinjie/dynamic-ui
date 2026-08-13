@@ -25,7 +25,11 @@ const modelValue = computed({
 
 
 <template>
-  <ElTableColumn v-model="modelValue"/>
+  <ElTableColumn>
+    <template #default="scope">
+      <div>{{scope.row.id}}</div>
+    </template>
+  </ElTableColumn>
 </template>
 
 <style scoped>

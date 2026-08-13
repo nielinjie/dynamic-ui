@@ -6,7 +6,7 @@ import type {ViewDeclareItem} from "@/spec/declare.ts";
 import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
 
 
-const props = defineProps<{ viewDeclareItem: ViewDeclareItem }>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
 const emit = defineEmits(['patchDataModel'])
 const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
 const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
