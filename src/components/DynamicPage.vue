@@ -9,7 +9,7 @@ import {CENTER_DATA, DataContext, provideDataContext} from "@/DataContext.vue.ts
 const {pageName} = defineProps<{ pageName: string }>()
 
 const viewDeclare = spec(pageName, "table@_").viewDeclare
-const selectedViewDeclare = spec(pageName, "sheet@selected").viewDeclare
+const detailViewDeclare = spec(pageName, "sheet@selected").viewDeclare
 
 const dataModel = ref(data)
 const stateData: Ref<Record<string, any>> = ref({}) //这里面装的基本上是<state名，关注数据的 path>
@@ -17,6 +17,7 @@ const stateData: Ref<Record<string, any>> = ref({}) //这里面装的基本上�
 const ctx = ref(new DataContext(dataModel))
 provide(CENTER_DATA, ctx)
 provide(STATE_DATA, stateData)
+provide("state_declare_detail",detailViewDeclare)
 
 
 </script>
@@ -24,8 +25,6 @@ provide(STATE_DATA, stateData)
 <template>
   <main>
     <RootRenderer key="table@_" :viewDeclare="viewDeclare"/>
-    <RootRenderer key="sheet@selected" v-if="stateData.selected" :viewDeclare="selectedViewDeclare"
-                  atState="selected"/>
   </main>
 </template>
 

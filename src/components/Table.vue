@@ -1,12 +1,14 @@
 <script setup lang="ts">
 
-import {computed, type ComputedRef, inject, type Ref} from "vue";
+import {computed, type ComputedRef, inject, ref, type Ref} from "vue";
 import type {ViewDeclare, ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
-import {ElTable, ElTableColumn} from "element-plus"
+import {ElButton, ElDialog, ElSpace, ElTable, ElTableColumn} from "element-plus"
 import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
 import {STATE_DATA} from "@/data/state.ts";
+import RootRenderer from "@/components/RootRenderer.vue";
+import {spec} from "@/spec/spec.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
 const viewDeclare: Ref<ViewDeclare> = inject('viewDeclare')!!
@@ -19,13 +21,16 @@ const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
 const emit = defineEmits(['patchDataModel'])
 const state: Ref<Record<string, any>> = inject(STATE_DATA)!!
 
+const showDetailDialog = ref(false)
 
-function onRowClick(row: unknown) {
-  const data = modelValue.value
-  if (!Array.isArray(data)) return
-  const index = data.indexOf(row)
-  state.value = {...state.value, selected: props.viewDeclareItem!!.path + "/" + index}
+
+function onButtonClick(index: number) {
+
+  state.value = {...state.value, detail: props.viewDeclareItem!!.path + "/" + index}
+  showDetailDialog.value = true
 }
+
+const detailViewDeclare = inject("state_declare_detail")!!
 
 
 const modelValue: ComputedRef<any[]> = computed(
@@ -33,14 +38,37 @@ const modelValue: ComputedRef<any[]> = computed(
       return ctx.value.resolve(props.viewDeclareItem!!.path) as any[]
     },
 )
+
 </script>
 <template>
-  <ElTable :data="modelValue" highlight-current-row @row-click="onRowClick">
+  <ElTable :data="modelValue" highlight-current-row>
+    <ElTableColumn type="index"/>
+    <ElTableColumn></ElTableColumn>
     <ElTableColumn v-for="child in childNodes"
                    :key="child!!.id">
       <template #default="scope">
         <DynamicComponent
             :viewDeclareItem="child" v-bind="child!!.setting" :dataIndex="scope.$index"/>
+      </template>
+    </ElTableColumn>
+    <ElTableColumn>
+      <template #default="scope">
+        <ElSpace>
+          <ElButton @click="onButtonClick(scope.$index)">详情</ElButton>
+          <ElButton>删除</ElButton>
+
+          <!-- 详情弹窗 -->
+          <ElDialog v-model="showDetailDialog" title="详情">
+            <template #header>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>详情</span>
+                <ElButton type="primary" size="small">保存</ElButton>
+              </div>
+            </template>
+            <RootRenderer key="sheet@detail" v-if="state.detail" :viewDeclare="detailViewDeclare"
+                          atState="detail"/>
+          </ElDialog>
+        </ElSpace>
       </template>
     </ElTableColumn>
   </ElTable>
