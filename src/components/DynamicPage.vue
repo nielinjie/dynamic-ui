@@ -3,7 +3,7 @@ import {spec} from "@/spec/spec.ts";
 import {data} from "@/data/data.ts";
 import {computed, provide, type Ref, ref} from "vue";
 import RootRenderer from "@/components/RootRenderer.vue";
-import {STATE_DATA} from "@/data/state.ts";
+import {STATE_DATA, STATE_DECLARE_DETAIL} from "@/data/state.ts";
 import {CENTER_DATA, DataContext, provideDataContext} from "@/DataContext.vue.ts";
 
 const {pageName} = defineProps<{ pageName: string }>()
@@ -17,7 +17,7 @@ const stateData: Ref<Record<string, any>> = ref({}) //这里面装的基本上�
 const ctx = ref(new DataContext(dataModel))
 provide(CENTER_DATA, ctx)
 provide(STATE_DATA, stateData)
-provide("state_declare_detail",detailViewDeclare)
+provide(STATE_DECLARE_DETAIL, detailViewDeclare)
 
 
 </script>

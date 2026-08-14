@@ -6,9 +6,8 @@ import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElButton, ElDialog, ElSpace, ElTable, ElTableColumn} from "element-plus"
 import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
-import {STATE_DATA} from "@/data/state.ts";
+import {STATE_DATA, STATE_DECLARE_DETAIL} from "@/data/state.ts";
 import RootRenderer from "@/components/RootRenderer.vue";
-import {spec} from "@/spec/spec.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
 const viewDeclare: Ref<ViewDeclare> = inject('viewDeclare')!!
@@ -30,7 +29,7 @@ function onButtonClick(index: number) {
   showDetailDialog.value = true
 }
 
-const detailViewDeclare = inject("state_declare_detail")!!
+const detailViewDeclare: Ref<ViewDeclareItem[]> = inject(STATE_DECLARE_DETAIL)!!
 
 
 const modelValue: ComputedRef<any[]> = computed(
@@ -41,7 +40,7 @@ const modelValue: ComputedRef<any[]> = computed(
 
 </script>
 <template>
-  <ElTable :data="modelValue" highlight-current-row>
+  <ElTable :data="modelValue">
     <ElTableColumn type="index"/>
     <ElTableColumn></ElTableColumn>
     <ElTableColumn v-for="child in childNodes"
