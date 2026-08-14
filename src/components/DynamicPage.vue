@@ -9,7 +9,7 @@ import {CENTER_DATA, DataContext, provideDataContext} from "@/DataContext.vue.ts
 const {pageName} = defineProps<{ pageName: string }>()
 
 const viewDeclare = spec(pageName, "table@_").viewDeclare
-const detailViewDeclare = spec(pageName, "sheet@selected").viewDeclare
+const detailViewDeclare = spec(pageName, "sheet@detail").viewDeclare
 
 const dataModel = ref(data)
 const stateData: Ref<Record<string, any>> = ref({}) //这里面装的基本上是<state名，关注数据的 path>

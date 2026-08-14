@@ -55,20 +55,20 @@ const modelValue: ComputedRef<any[]> = computed(
         <ElSpace>
           <ElButton @click="onButtonClick(scope.$index)">详情</ElButton>
           <ElButton>删除</ElButton>
-
-          <!-- 详情弹窗 -->
-          <ElDialog v-model="showDetailDialog" title="详情">
-            <template #header>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span>详情</span>
-                <ElButton type="primary" size="small">保存</ElButton>
-              </div>
-            </template>
-            <RootRenderer key="sheet@detail" v-if="state.detail" :viewDeclare="detailViewDeclare"
-                          atState="detail"/>
-          </ElDialog>
         </ElSpace>
       </template>
     </ElTableColumn>
   </ElTable>
+
+  <!-- 详情弹窗：移出 table，避免与 table hover 动画冲突 -->
+  <ElDialog v-model="showDetailDialog" title="详情" destroy-on-close>
+    <template #header>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span>详情</span>
+        <ElButton type="primary" size="small">保存</ElButton>
+      </div>
+    </template>
+    <RootRenderer key="sheet@detail" v-if="state.detail" :viewDeclare="detailViewDeclare"
+                  atState="detail"/>
+  </ElDialog>
 </template>

@@ -50,7 +50,7 @@ export const fake: Spec = {
                         }
                     ]
                 },
-                "sheet@selected": {
+                "sheet@detail": {
                     "items": [
                         {
                             "dataPath": "/",
