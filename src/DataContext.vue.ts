@@ -33,4 +33,4 @@ export function useDataContext(name:symbol = CENTER_DATA): DataContext {
 }
 
 // 同时导出纯 JS 核心，方便直接 import
-export { DataContext, jsonPointerGet, jsonPointerSet } from './DataContext'
+export { DataContext, jsonPointerGet, jsonPointerSet, type PathValue } from './DataContext'

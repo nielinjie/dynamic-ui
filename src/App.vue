@@ -1,10 +1,12 @@
 <script setup lang="ts">
 
 import DynamicPage from "@/components/DynamicPage.vue";
+import {fake} from "@/spec/fake";
+import {data} from "@/data/data";
 </script>
 
 <template>
-  <DynamicPage pageName="personTableAndSheet"/>
+  <DynamicPage pageName="personTableAndSheet" :specData="fake" :data="data"/>
 </template>
 
 <style scoped>

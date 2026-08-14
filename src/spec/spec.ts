@@ -1,7 +1,6 @@
 /**
  type MView = ModelAndViewDeclare
  */
-import {fake} from "@/spec/fake.ts";
 import {fillChildren, type MView} from "@/spec/declare.ts";
 
 /**
@@ -12,10 +11,10 @@ function getPathFromData(dataPath: string): string {
     return dataPath.replace(/\/\[\]/g, '');
 }
 
-export function spec(pageName: string, componentName: string): MView {
+export function spec(pageName: string, componentName: string,specData:Spec): MView {
     return {
         dataModel: undefined,
-        viewDeclare: fillChildren(fake.pages[pageName]!!.components[componentName]!!.items.map((item: any) => {
+        viewDeclare: fillChildren(specData.pages[pageName]!!.components[componentName]!!.items.map((item: any) => {
             const path = getPathFromData(item.dataPath);
             return {
                 id: path,
