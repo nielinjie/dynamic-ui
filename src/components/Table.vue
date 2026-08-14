@@ -1,16 +1,16 @@
 <script setup lang="ts">
 
 import {computed, type ComputedRef, inject, ref, type Ref} from "vue";
-import type {ViewDeclare, ViewDeclareItem} from "@/spec/declare.ts";
+import {DECLARE, DECLARE_STATE_DETAIL, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElButton, ElDialog, ElSpace, ElTable, ElTableColumn} from "element-plus"
 import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
-import {STATE_DATA, STATE_DECLARE_DETAIL} from "@/data/state.ts";
+import {STATE_DATA} from "@/data/state.ts";
 import RootRenderer from "@/components/RootRenderer.vue";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
-const viewDeclare: Ref<ViewDeclare> = inject('viewDeclare')!!
+const viewDeclare: Ref<ViewDeclare> = inject(DECLARE)!!
 
 const childNodes = computed(() =>
     (props.viewDeclareItem.children || []).map(id => viewDeclare.value.filter(i => i.id === id)[0]).filter((item): item is ViewDeclareItem => Boolean(item))
@@ -29,7 +29,7 @@ function onButtonClick(index: number) {
   showDetailDialog.value = true
 }
 
-const detailViewDeclare: Ref<ViewDeclareItem[]> = inject(STATE_DECLARE_DETAIL)!!
+const detailViewDeclare: Ref<ViewDeclareItem[]> = inject(DECLARE_STATE_DETAIL)!!
 
 
 const modelValue: ComputedRef<any[]> = computed(

@@ -1,5 +1,10 @@
 export type ViewDeclare = Array<ViewDeclareItem>
 
+
+
+export const DECLARE_STATE_DETAIL = Symbol('DECLARE_STATE_DETAIL')
+export const DECLARE = Symbol('DECLARE')
+
 /**
  * 根据各个 item 的 path，自动填充各个 item 的 children，比如 path=/a/b/c， 则它应该是 {path: "/a/b",……}children。将其 id 填充到此 item 的 children 里。
  * @param viewDeclare
