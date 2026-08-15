@@ -5,6 +5,7 @@ export const fake: Spec = {
     "namespace": "test",
     "pages": {
         "personTableAndSheet": {
+            "entry": "员工管理/集合",
             "components": {
                 "table@_": {
                     "items": [
@@ -15,42 +16,32 @@ export const fake: Spec = {
                         },
                         {
                             "dataPath": "/[]/id",
-                            "element": "text",
-                            "setting": {"prop": "id"}
-                        },
-                        {
-                            "dataPath": "/[]/name",
-                            "element": "text",
-                            "setting": {"prop": "name"}
-                        },
-                        {
-                            "dataPath": "/[]/age",
-                            "element": "text",
-                            "setting": {"prop": "age"}
-                        },
-                        {
-                            "dataPath": "/[]/address",
-                            "element": "row",
-                            "setting": {"prop": "address", "label": "Address"}
-                        },
-                        {
-                            "dataPath": "/[]/address/city",
-                            "element": "text",
+                            "element": "column",
                             "setting": {}
                         },
                         {
-                            "dataPath": "/[]/address/street",
-                            "element": "text",
+                            "dataPath": "/[]/name",
+                            "element": "column",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/[]/age",
+                            "element": "column",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/[]/address",
+                            "element": "column",
                             "setting": {}
                         },
                         {
                             "dataPath": "/[]/contact",
-                            "element": "text",
-                            "setting": {"prop": "contact"}
+                            "element": "column",
+                            "setting": {}
                         }
                     ]
                 },
-                "sheet@detail": {
+                "sheet@selected": {
                     "items": [
                         {
                             "dataPath": "/",
@@ -59,27 +50,27 @@ export const fake: Spec = {
                         },
                         {
                             "dataPath": "/id",
-                            "element": "input",
+                            "element": "row",
                             "setting": {}
                         },
                         {
                             "dataPath": "/name",
-                            "element": "input",
+                            "element": "row",
                             "setting": {}
                         },
                         {
                             "dataPath": "/age",
-                            "element": "input",
+                            "element": "row",
                             "setting": {}
                         },
                         {
                             "dataPath": "/address",
-                            "element": "text",
+                            "element": "row",
                             "setting": {}
                         },
                         {
                             "dataPath": "/contact",
-                            "element": "input",
+                            "element": "row",
                             "setting": {}
                         }
                     ]

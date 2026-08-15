@@ -11,7 +11,7 @@ function getPathFromData(dataPath: string): string {
     return dataPath.replace(/\/\[\]/g, '');
 }
 
-export function spec(pageName: string, componentName: string,specData:Spec): MView {
+export function spec(pageName: string, componentName: string, specData: Spec): MView {
     return {
         dataModel: undefined,
         viewDeclare: fillChildren(specData.pages[pageName]!!.components[componentName]!!.items.map((item: any) => {
@@ -39,6 +39,7 @@ export interface SpecComponent {
 }
 
 export interface SpecPage {
+    entry: string
     components: Record<string, SpecComponent>
 }
 
