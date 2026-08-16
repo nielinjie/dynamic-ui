@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {type Spec, spec} from "@/spec/spec.ts";
-import {provide, type Ref, ref} from "vue";
+import {computed, provide, type Ref, ref} from "vue";
 import RootRenderer from "@/components/RootRenderer.vue";
 import {STATE_DATA} from "@/data/state.ts";
 import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
 import {DECLARE_STATE_DETAIL} from "@/spec/declare.ts";
 
-const {pageName, specData, data} = defineProps<{ pageName: string, specData: Spec, data: any }>()
+
+const {pageName, specData, data} = defineProps<{ pageName: string, specData: Spec, data: any[] }>()
 
 const viewDeclare = spec(pageName, "table@_", specData).viewDeclare
 const detailViewDeclare = spec(pageName, "sheet@detail", specData).viewDeclare
 
-const dataModel = ref(data)
 const stateData: Ref<Record<string, any>> = ref({}) //这里面装的基本上是<state名，关注数据的 path>
 
-const ctx = ref(new DataContext(dataModel))
+const ctx = computed(() => new DataContext(data))
 provide(CENTER_DATA, ctx)
 provide(STATE_DATA, stateData)
 provide(DECLARE_STATE_DETAIL, detailViewDeclare)
