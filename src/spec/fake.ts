@@ -31,7 +31,7 @@ export const fake: Spec = {
                         },
                         {
                             "dataPath": "/[]/address",
-                            "element": "table",
+                            "element": "popTable",
                             "setting": {}
                         },
                         {
