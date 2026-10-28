@@ -85,11 +85,31 @@ export const fake: Spec = {
                         },
                         {
                             "dataPath": "/address",
+                            "element": "multiItemSheet",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/address/[]/city",
+                            "element": "input",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/address/[]/street",
                             "element": "input",
                             "setting": {}
                         },
                         {
                             "dataPath": "/contact",
+                            "element": "sheet",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/contact/phone",
+                            "element": "input",
+                            "setting": {}
+                        },
+                        {
+                            "dataPath": "/contact/email",
                             "element": "input",
                             "setting": {}
                         }
