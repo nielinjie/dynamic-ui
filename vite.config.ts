@@ -3,10 +3,12 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
+import vueDevtools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    vueDevtools(),
     vue(),
     dts({
       tsconfigPath: './tsconfig.app.json',

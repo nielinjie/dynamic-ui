@@ -4,18 +4,24 @@ export const data =
         id: "xxxx",
         name: "John",
         age: 30,
-        address: {
+        address: [{
             city: "Chengdu",
             street: "123 Main St"
-        },
-        contact: "555-1234"
+        },{
+            city: "Beijing",
+            street: "789 Other St"
+        }],
+        contact: {"phone": "555-1234"}
     }, {
         id: "yyyy",
         name: "Mike",
         age: 28,
-        address: {
+        address: [{
             city: "Shanghai",
             street: "456 Other St"
-        },
-        contact: "555-5678"
+        },{
+            city: "Guangzhou",
+            street: "789 Other St"
+        }],
+        contact: {"phone": "555-5678", "email": "mike@example.com"}
     }]

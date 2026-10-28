@@ -8,7 +8,7 @@ import {ElSpace} from "element-plus"
 
 const props = defineProps<{
   viewDeclareItem: ViewDeclareItem,
-  dataIndex?: number,
+  dataIndex: string[],
   direction?: "vertical" | "horizontal"
 }>()
 

@@ -6,7 +6,7 @@ import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElCard} from "element-plus"
 
-const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex?: number }>()
+const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex: string[] }>()
 
 const viewDeclare: Ref<ViewDeclare> = inject(DECLARE)!!
 

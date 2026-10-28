@@ -20,5 +20,5 @@ provide(STATE_NAME, props.atState)
 const rootItem = computed(() => props.viewDeclare.filter((c: ViewDeclareItem) => c.id === "/")[0])
 </script>
 <template>
-  <DynamicComponent v-if="rootItem" :viewDeclareItem="rootItem"/>
+  <DynamicComponent v-if="rootItem" :viewDeclareItem="rootItem" :dataIndex="[]"/>
 </template>

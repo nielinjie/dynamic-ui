@@ -4,10 +4,11 @@ import Sheet from "@/components/Sheet.vue";
 import Table from "@/components/Table.vue";
 import Text from "@/components/Text.vue";
 import Contain from "@/components/Contain.vue";
-import { h } from "vue";
+import {h} from "vue";
+import RootTable from "@/components/RootTable.vue";
 
-const Col = (props: any, { attrs }: any) => {
-    return h(Contain, { ...attrs, direction: attrs.direction || 'vertical' });
+const Col = (props: any, {attrs}: any) => {
+    return h(Contain, {...attrs, direction: attrs.direction || 'vertical'});
 };
 
 export const catalog: Record<string, any> = {
@@ -16,6 +17,7 @@ export const catalog: Record<string, any> = {
     "sheet": Sheet,
     "text": Text,
     "table": Table,
+    "rootTable": RootTable,
     "contain": Contain,
     "row": Contain,
     "col": Col
