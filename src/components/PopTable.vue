@@ -3,32 +3,19 @@
 import {computed, inject, ref, type ComputedRef, type Ref} from "vue";
 import {DECLARE, label, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
-import {replaceAll} from "@/utils/replaceAll.ts";
 
 import {ElButton, ElDialog, ElTable, ElTableColumn} from "element-plus"
 import { ZoomIn } from '@element-plus/icons-vue'
-import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
-import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
+import {useDataValue} from "@/composables/useDataValue.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex: string[] }>()
-
-const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
-const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
-const stateName: string = inject(STATE_NAME)!!
 
 const viewDeclare: Ref<ViewDeclare> = inject(DECLARE)!!
 const childNodes = computed(() =>
     (props.viewDeclareItem.children || []).map(id => viewDeclare.value.filter(i => i.id === id)[0]).filter((item): item is ViewDeclareItem => Boolean(item))
 )
 
-const modelValue: ComputedRef<any[]> = computed(
-    () => {
-      const statePathValue = stateData.value[stateName] || '/'
-      const newDataPath = replaceAll(props.viewDeclareItem!!.dataPath, "[]", props.dataIndex || [])
-      const v = ctx.value.scope(statePathValue).resolve(newDataPath)
-      return v as any[]
-    },
-)
+const modelValue: ComputedRef<any[]> = useDataValue<any[]>(props.viewDeclareItem, props.dataIndex)
 
 const showDialog = ref(false)
 

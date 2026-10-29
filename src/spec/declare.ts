@@ -50,7 +50,7 @@ export interface MView {
 }
 
 export function label(viewDeclareItem: ViewDeclareItem): string {
-    const settingLabel = (viewDeclareItem.setting as any).label
+    const settingLabel = (viewDeclareItem.setting as any)?.label
     if (settingLabel) {
         return settingLabel
     }

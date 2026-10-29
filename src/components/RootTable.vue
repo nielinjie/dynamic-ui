@@ -5,9 +5,9 @@ import {DECLARE, DECLARE_STATE_DETAIL, label, type ViewDeclare, type ViewDeclare
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElButton, ElDialog, ElSpace, ElTable, ElTableColumn} from "element-plus"
-import {CENTER_DATA, DataContext} from "@/DataContext.vue.ts";
 import {STATE_DATA} from "@/data/state.ts";
 import RootRenderer from "@/components/RootRenderer.vue";
+import {usePathValue} from "@/composables/useDataValue.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex: string[] }>()
 const viewDeclare: Ref<ViewDeclare> = inject(DECLARE)!!
@@ -16,7 +16,6 @@ const childNodes = computed(() =>
     (props.viewDeclareItem.children || []).map(id => viewDeclare.value.filter(i => i.id === id)[0]).filter((item): item is ViewDeclareItem => Boolean(item))
 )
 
-const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
 const emit = defineEmits(['patchDataModel'])
 const state: Ref<Record<string, any>> = inject(STATE_DATA)!!
 
@@ -32,11 +31,7 @@ function onButtonClick(index: number) {
 const detailViewDeclare: Ref<ViewDeclareItem[]> = inject(DECLARE_STATE_DETAIL)!!
 
 
-const modelValue: ComputedRef<any[]> = computed(
-    () => {
-      return ctx.value.resolve(props.viewDeclareItem!!.path) as any[]
-    },
-)
+const modelValue: ComputedRef<any[]> = usePathValue<any[]>(props.viewDeclareItem)
 
 
 </script>

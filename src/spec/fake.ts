@@ -24,6 +24,7 @@ export const fake: Spec = {
                             "element": "text",
 
                         },
+                        {"dataPath": "/[]/sex", "element": "text"},
                         {
                             "dataPath": "/[]/age",
                             "element": "text",
@@ -78,6 +79,14 @@ export const fake: Spec = {
                             "element": "input",
 
                         },
+                        {
+                            "dataPath": "/[]/sex", "element": "dropdown", "setting": {
+                                "options": {
+                                    "uri": "/api/sexes"//return {value1:text1,value2:text2}...
+                                }
+                            }
+                        },
+
                         {
                             "dataPath": "/age",
                             "element": "input",

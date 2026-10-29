@@ -15,6 +15,14 @@ export default defineConfig({
       outDir: 'dist',
     }),
   ],
+  server: {
+    configureServer(server) {
+      server.middlewares.use('/api/sexes', (req, res) => {
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify({ 'male': 'male', 'female': 'female' }))
+      })
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

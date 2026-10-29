@@ -1,13 +1,13 @@
 // ── Components ──
 export { default as DynamicComponent } from './components/DynamicComponent.vue'
 export { default as RootRenderer } from './components/RootRenderer.vue'
-export { default as DynamicPage } from './components/DynamicPage.vue'
+export { default as DynamicPage } from './components/DefaultRootPage.vue'
 export { default as Input } from './components/Input.vue'
 export { default as Text } from './components/Text.vue'
 export { default as Card } from './components/Card.vue'
 export { default as Sheet } from './components/Sheet.vue'
 export { default as Table } from './components/Table.vue'
-export { default as Contain } from './components/Contain.vue'
+export { default as Contain } from './components/Container.vue'
 
 // ── Catalog ──
 export { catalog } from './components/catalog/index.ts'

@@ -5,10 +5,7 @@ import {DECLARE, label, type ViewDeclare, type ViewDeclareItem} from "@/spec/dec
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElCard, ElButton, ElFormItem} from "element-plus"
-import {replaceAll} from "@/utils/replaceAll.ts";
-import {DataContext} from "@/DataContext.ts";
-import {CENTER_DATA} from "@/DataContext.vue.ts";
-import {STATE_DATA, STATE_NAME} from "@/data/state.ts";
+import {useWritableDataValue} from "@/composables/useDataValue.ts";
 
 const props = defineProps<{ viewDeclareItem: ViewDeclareItem, dataIndex: string[] }>()
 
@@ -17,9 +14,6 @@ const viewDeclare: Ref<ViewDeclare> = inject(DECLARE)!!
 const childNodes = computed(() =>
     (props.viewDeclareItem.children || []).map(id => viewDeclare.value.filter(i => i.id === id)[0]).filter((item): item is ViewDeclareItem => Boolean(item))
 )
-const ctx: Ref<DataContext> = inject(CENTER_DATA)!!
-const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
-const stateName: string = inject(STATE_NAME)!!
 const emit = defineEmits(['patchDataModel'])
 
 function addNew() {
@@ -34,23 +28,7 @@ function remove(index: number) {
   modelValue.value = current
 }
 
-const modelValue: WritableComputedRef<any[]> = computed({
-      get() {
-        const statePathValue = stateData.value[stateName] || '/'
-        const newDataPath = replaceAll(props.viewDeclareItem!!.dataPath, "[]", props.dataIndex || [])
-        const v = ctx.value.scope(statePathValue).resolve(newDataPath)
-        return v as any[]
-
-      },
-      set(val) {
-        console.log("setting")
-        const statePathValue = stateData.value[stateName] || '/'
-        const newDataPath = replaceAll(props.viewDeclareItem!!.dataPath, "[]", props.dataIndex || [])
-        ctx.value.scope(statePathValue).set(newDataPath, val)
-        emit('patchDataModel', {path: props.viewDeclareItem!!.path, value: val})
-      }
-    }
-)
+const modelValue: WritableComputedRef<any[]> = useWritableDataValue<any[]>(props.viewDeclareItem, props.dataIndex, emit)
 
 
 </script>

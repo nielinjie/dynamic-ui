@@ -11,7 +11,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Card: typeof import('./src/components/Card.vue')['default']
     DynamicComponent: typeof import('./src/components/DynamicComponent.vue')['default']
     Input: typeof import('./src/components/Input.vue')['default']
     DynamicRenderer: typeof import('./src/components/RootRenderer.vue')['default']

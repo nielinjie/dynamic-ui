@@ -3,6 +3,7 @@ export const data =
     [{
         id: "xxxx",
         name: "John",
+        sex: "male",
         age: 30,
         address: [{
             city: "Chengdu",
@@ -15,6 +16,7 @@ export const data =
     }, {
         id: "yyyy",
         name: "Mike",
+        sex: "male",
         age: 28,
         address: [{
             city: "Shanghai",
