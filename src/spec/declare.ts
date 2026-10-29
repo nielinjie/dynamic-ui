@@ -41,7 +41,7 @@ export interface ViewDeclareItem {
     path: string,
     dataPath: string,
     element: string,
-    setting: object,
+    setting?: Record<string, any>,
     children?: Array<string>
 }
 

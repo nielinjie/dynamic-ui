@@ -80,9 +80,14 @@ export const fake: Spec = {
 
                         },
                         {
-                            "dataPath": "/[]/sex", "element": "dropdown", "setting": {
+                            "dataPath": "/sex", "element": "choice", "setting": {
                                 "options": {
-                                    "uri": "/api/sexes"//return {value1:text1,value2:text2}...
+                                    "uri": "/api/sexes",//return {value1:text1,value2:text2}...
+                                    "valueField": "value",
+                                    "items": [
+                                        {"dataPath": "/value","path":"/value", "element": "text"},
+                                        {"dataPath": "/text", "path":"/text", "element": "text"}
+                                    ]
                                 }
                             }
                         },

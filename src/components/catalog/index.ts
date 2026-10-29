@@ -9,6 +9,7 @@ import PopTable from "@/components/PopTable.vue";
 import MultiItemSheet from "@/components/MultiItemSheet.vue";
 import Container from "@/components/Container.vue";
 import DropDown from "@/components/DropDown.vue";
+import Choice from "@/components/Choice.vue";
 
 const Col = (props: any, {attrs}: any) => {
     return h(Contain, {...attrs, direction: attrs.direction || 'vertical'});
@@ -25,5 +26,6 @@ export const catalog: Record<string, any> = {
     "container": Container, //简单容器。
     "row": Container, //行容器。
     "col": Col, //列容器。
-    "dropdown": DropDown
+    "dropdown": DropDown,
+    "choice":Choice,
 }
