@@ -15,14 +15,6 @@ const stateData: Ref<Record<string, any>> = inject(STATE_DATA)!!
 const stateName: string = inject(STATE_NAME)!!
 
 
-const label = computed(() => {
-  const settingLabel = (props.viewDeclareItem.setting as any).label
-  if (settingLabel) {
-    return settingLabel
-  }
-  const parts = props.viewDeclareItem.path.split('/').filter(Boolean)
-  return parts[parts.length - 1] ?? props.viewDeclareItem.path
-})
 
 const modelValue = computed({
   get() {
@@ -44,9 +36,7 @@ const modelValue = computed({
 
 
 <template>
-  <ElFormItem :label="label">
     <ElInput v-model="modelValue"/>
-  </ElFormItem>
 </template>
 
 <style scoped>

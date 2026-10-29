@@ -4,7 +4,7 @@ import {computed, type ComputedRef, inject, type Ref, type WritableComputedRef} 
 import {DECLARE, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
-import {ElCard, ElButton} from "element-plus"
+import {ElCard, ElButton, ElFormItem} from "element-plus"
 import {replaceAll} from "@/utils/replaceAll.ts";
 import {DataContext} from "@/DataContext.ts";
 import {CENTER_DATA} from "@/DataContext.vue.ts";
@@ -51,6 +51,15 @@ const modelValue: WritableComputedRef<any[]> = computed({
       }
     }
 )
+
+const label = (viewDeclareItem: ViewDeclareItem) => {
+  const settingLabel = (viewDeclareItem.setting as any).label
+  if (settingLabel) {
+    return settingLabel
+  }
+  const parts = viewDeclareItem.path.split('/').filter(Boolean)
+  return parts[parts.length - 1] ?? viewDeclareItem.path
+}
 </script>
 <template>
   <div>
@@ -61,10 +70,14 @@ const modelValue: WritableComputedRef<any[]> = computed({
           <ElButton type="danger" size="small" @click="remove(index)">Remove</ElButton>
         </div>
       </template>
-      <DynamicComponent v-for="(child ) in childNodes"
-                        :key="child.id"
-                        :viewDeclareItem="child" :dataIndex="(dataIndex||[]).concat(String(index))"/>
+      <ElFormItem v-for="child in childNodes" :label="label(child)">
+
+        <DynamicComponent
+                          :key="child.id"
+                          :viewDeclareItem="child" :dataIndex="(dataIndex||[]).concat(String(index))"/>
+      </ElFormItem>
     </ElCard>
+
     <ElButton type="primary" @click="addNew">Add New</ElButton>
   </div>
 </template>
