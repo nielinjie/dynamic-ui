@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {computed, type ComputedRef, inject, type Ref, type WritableComputedRef} from "vue";
-import {DECLARE, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
+import {DECLARE, label, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 
 import {ElCard, ElButton, ElFormItem} from "element-plus"
@@ -52,14 +52,7 @@ const modelValue: WritableComputedRef<any[]> = computed({
     }
 )
 
-const label = (viewDeclareItem: ViewDeclareItem) => {
-  const settingLabel = (viewDeclareItem.setting as any).label
-  if (settingLabel) {
-    return settingLabel
-  }
-  const parts = viewDeclareItem.path.split('/').filter(Boolean)
-  return parts[parts.length - 1] ?? viewDeclareItem.path
-}
+
 </script>
 <template>
   <div>

@@ -5,15 +5,23 @@ import {fillChildren, type MView} from "@/spec/declare.ts";
 
 /**
  * 把 dataPath 转换成 path，例如 /[]/id 转换成 /id
+ * path 用于组件定义路径。
+ * dataPath 用于组件数据路径。
  * @param dataPath
  */
 function getPathFromData(dataPath: string): string {
     return dataPath.replace(/\/\[\]/g, '');
 }
 
+/**
+ * 后台 declare 结构转换为前台使用的结构。
+ * Spec => MView
+ * @param pageName
+ * @param componentName
+ * @param specData
+ */
 export function spec(pageName: string, componentName: string, specData: Spec): MView {
     return {
-        dataModel: undefined,
         viewDeclare: fillChildren(specData.pages[pageName]!!.components[componentName]!!.items.map((item: any) => {
             const path = getPathFromData(item.dataPath);
             return {
@@ -31,7 +39,7 @@ export function spec(pageName: string, componentName: string, specData: Spec): M
 export interface SpecComponentItem {
     dataPath: string
     element: string
-    setting: object
+    setting?: object
 }
 
 export interface SpecComponent {

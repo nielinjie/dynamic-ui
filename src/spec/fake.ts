@@ -12,22 +12,22 @@ export const fake: Spec = {
                         {
                             "dataPath": "/",
                             "element": "rootTable",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/id",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/name",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/age",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/address",
@@ -37,27 +37,27 @@ export const fake: Spec = {
                         {
                             "dataPath": "/[]/address/[]/city",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/address/[]/street",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/contact",
-                            "element": "contain",
-                            "setting": {}
+                            "element": "row",
+
                         },
                         {
                             "dataPath": "/[]/contact/phone",
                             "element": "text",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/[]/contact/email",
                             "element": "text",
-                            "setting": {}
+
                         }
                     ]
                 },
@@ -66,52 +66,52 @@ export const fake: Spec = {
                         {
                             "dataPath": "/",
                             "element": "sheet",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/id",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/name",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/age",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/address",
                             "element": "multiItemSheet",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/address/[]/city",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/address/[]/street",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/contact",
                             "element": "sheet",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/contact/phone",
                             "element": "input",
-                            "setting": {}
+
                         },
                         {
                             "dataPath": "/contact/email",
                             "element": "input",
-                            "setting": {}
+
                         }
                     ]
                 }

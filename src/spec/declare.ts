@@ -1,7 +1,6 @@
 export type ViewDeclare = Array<ViewDeclareItem>
 
 
-
 export const DECLARE_STATE_DETAIL = Symbol('DECLARE_STATE_DETAIL')
 export const DECLARE = Symbol('DECLARE')
 
@@ -47,8 +46,16 @@ export interface ViewDeclareItem {
 }
 
 export interface MView {
-    dataModel: any | undefined,
     viewDeclare: ViewDeclare
+}
+
+export function label(viewDeclareItem: ViewDeclareItem): string {
+    const settingLabel = (viewDeclareItem.setting as any).label
+    if (settingLabel) {
+        return settingLabel
+    }
+    const parts = viewDeclareItem.path.split('/').filter(Boolean)
+    return parts[parts.length - 1] ?? viewDeclareItem.path
 }
 
 

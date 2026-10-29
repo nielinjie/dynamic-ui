@@ -18,6 +18,13 @@ provide(CENTER_DATA, ctx)
 provide(STATE_DATA, stateData)
 provide(DECLARE_STATE_DETAIL, detailViewDeclare)
 
+/**
+ * 这个 page 的几个“部分确定了”，不是一个抽象的 page，是一个默认的 page。
+ * 有个 table，
+ * table 每一行可以 detail。editing。
+ *
+ */
+
 </script>
 
 <template>

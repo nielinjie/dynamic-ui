@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {computed, inject, ref, type ComputedRef, type Ref} from "vue";
-import {DECLARE, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
+import {DECLARE, label, type ViewDeclare, type ViewDeclareItem} from "@/spec/declare.ts";
 import DynamicComponent from "@/components/DynamicComponent.vue";
 import {replaceAll} from "@/utils/replaceAll.ts";
 
@@ -37,6 +37,7 @@ const recordCount = computed(() => {
   return `${count} 条记录`
 })
 
+
 </script>
 <template>
   <div>
@@ -49,7 +50,8 @@ const recordCount = computed(() => {
       <ElTableColumn type="index"/>
       <ElTableColumn></ElTableColumn>
       <ElTableColumn v-for="child in childNodes"
-                     :key="child!!.id">
+                     :key="child!!.id"
+                     :label="label(child)">
         <template #default="scope">
           <DynamicComponent
               :viewDeclareItem="child" v-bind="child!!.setting" :dataIndex="props.dataIndex.concat(String(scope.$index))"/>

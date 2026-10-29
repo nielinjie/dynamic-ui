@@ -14,15 +14,14 @@ const Col = (props: any, {attrs}: any) => {
 };
 
 export const catalog: Record<string, any> = {
-    "input": Input,
-    "card": Card,
-    "sheet": Sheet,
-    "multiItemSheet":MultiItemSheet,
-    "text": Text,
-    "table": Table,
-    "popTable": PopTable,
-    "rootTable": RootTable,
-    "contain": Contain,
-    "row": Contain,
-    "col": Col
+    "input": Input, //文本输入框，支持修改。
+    "sheet": Sheet, // 类似于 form，多个 label/component 对
+    "multiItemSheet":MultiItemSheet, //多个 sheet，为 array 准备，有增加、删除支持。
+    "text": Text, //文本显示，不能修改。
+    "table": Table, //表格，展示多条数据。
+    "popTable": PopTable, // 弹出的表格，用于在狭窄处展示多条数据。
+    "rootTable": RootTable, //根表格，用于展示多条数据，并有增加、删除支持。TODO，增加 post 修改到后台。
+    "contain": Contain, //简单容器。
+    "row": Contain, //行容器。
+    "col": Col //列容器。
 }
