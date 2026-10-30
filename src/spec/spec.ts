@@ -48,7 +48,7 @@ export interface SpecComponent {
 
 export interface SpecPage {
     entry: string
-    dataUris: Record<string, string> //name and uri
+    // dataUris: Record<string, string> //name and uri
     components: Record<string, SpecComponent>
 }
 

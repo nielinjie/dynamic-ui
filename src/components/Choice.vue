@@ -38,7 +38,7 @@ const optionVDs = computed(() =>
     optionSetting.value?.items ?? []
 )
 
-const selectedIndex = ref<number | null>(null)
+const selectedIndex = ref<number | undefined>(undefined)
 
 async function openDialog() {
   await loadOptionData()
@@ -49,7 +49,7 @@ const showOptionDialog = ref(false)
 const emit = defineEmits(['patchDataModel'])
 
 function onConfirm() {
-  if (selectedIndex.value !== null && optionSetting.value?.valueField) {
+  if (selectedIndex.value !== undefined && optionSetting.value?.valueField) {
     const row = optionData.value[selectedIndex.value]
     if (row) {
       modelValue.value = row[optionSetting.value.valueField]
@@ -59,7 +59,7 @@ function onConfirm() {
 }
 
 function onCancel() {
-  selectedIndex.value = null
+  selectedIndex.value = undefined
   showOptionDialog.value = false
 }
 

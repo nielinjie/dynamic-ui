@@ -25,38 +25,35 @@ function mockApiPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig(() => {
-  return {
-    plugins: [
-      mockApiPlugin(),
-      vueDevtools(),
-      vue(),
-      dts({
-        tsconfigPath: './tsconfig.app.json',
-        outDir: 'dist',
-      }),
-    ],
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+export default defineConfig({
+  plugins: [
+    mockApiPlugin(),
+    vueDevtools(),
+    vue(),
+    dts({
+      tsconfigPath: './tsconfig.app.json',
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-    build: {
-      lib: {
-        entry: resolve(__dirname, 'src/index.ts'),
-        name: 'DynamicUI',
-        fileName: 'dynamic-ui',
-        formats: ['es'],
-      },
-      rollupOptions: {
-        external: ['vue', 'element-plus'],
-        output: {
-          globals: {
-            vue: 'Vue',
-            'element-plus': 'ElementPlus',
-          },
+  },
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'DynamicUI',
+      fileName: 'dynamic-ui',
+      formats: ['es'] as const,
+    },
+    rollupOptions: {
+      external: ['vue', 'element-plus'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          'element-plus': 'ElementPlus',
         },
       },
     },
-  }
+  },
 })
