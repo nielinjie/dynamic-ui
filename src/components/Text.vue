@@ -4,7 +4,8 @@ import type {ViewDeclareItem} from "@/spec/declare.ts";
 import {useDataValue} from "@/composables/useDataValue.ts";
 
 
-const props = defineProps<{ viewDeclareItem: ViewDeclareItem,
+const props = defineProps<{
+  viewDeclareItem: ViewDeclareItem,
   dataIndex: string[] ,
   manualData?: any
 }>()
